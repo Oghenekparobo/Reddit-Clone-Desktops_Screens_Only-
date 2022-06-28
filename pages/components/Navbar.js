@@ -2,7 +2,7 @@ import { AiOutlineReddit } from "react-icons/ai";
 
 const Nav = () => {
   return (
-    <div className="navbar flex items-center justify-between shadow p-2">
+    <div className="navbar flex items-center justify-between shadow p-2 ">
       <div className="nav-logo flex items-center mx-4 pr-4">
         <div className="text-red-500 text-4xl font-bold">
           <AiOutlineReddit />

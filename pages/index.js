@@ -1,23 +1,37 @@
 import Nav from "./components/Navbar";
 import Popular from "./components/Popular";
-import Posts from "./components/Posts";
+import PostHeader from "./components/PostHeader";
 import Trending from "./components/Trending";
+import { getPosts } from "lib/data";
+import prisma from "lib/prisma";
+import Head from "next/head";
+import Post from "./components/Post";
 
-export default function Home() {
+export default function Home({posts}) {
   return (
     <div className="">
-      <div className="navigational-bar">
+      <div className="">
+        <Head>
+        <title>Reddit Clone</title>
+        <meta name='description' content='A great social network!' />
+        <link rel='icon' href='/favicon.ico' />
+
+        </Head>
+      </div>
+      <div className="navigational-bar relative w-">
         <Nav />
       </div>
-
       <div className="h-full bg-gray-300 px-32">
         <Trending />
-
-        <div className="">
-          <h4 className="py-4">Popular posts</h4>
+        <h4 className="relative top-10">Popular posts</h4>
+        <div className="py-20">
           <div className="grid grid-cols-3">
             <div className="col-span-2">
-              <Posts />
+              <PostHeader posts/>
+             {posts.map((post , index) =>( 
+               <Post post ={post} />
+
+             ))}
             </div>
             <div className="">
               <Popular />
@@ -27,4 +41,16 @@ export default function Home() {
       </div>
     </div>
   );
+}
+
+export async function getServerSideProps() {
+  let posts = await getPosts(prisma)
+  posts = JSON.parse(JSON.stringify(posts))
+
+
+  return {
+    props: {
+      posts: posts,
+    },
+  }
 }
