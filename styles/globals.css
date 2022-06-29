@@ -53,3 +53,11 @@ a {
 .small{
   font-size: 13px;
 }
+
+
+ .bg{
+  background: url('../public/img/lenny-miles-q3Si_spMPHo-unsplash.jpg');
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+}

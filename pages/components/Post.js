@@ -1,7 +1,8 @@
 import { ImArrowUp, ImArrowDown } from "react-icons/im";
-import { AiOutlineReddit  } from "react-icons/ai";
+import { AiOutlineReddit } from "react-icons/ai";
 import timeago from "lib/timeago";
- 
+import Link from "next/link";
+
 const Post = ({ post }) => {
   return (
     <div className=" px-8 mt-4">
@@ -13,17 +14,26 @@ const Post = ({ post }) => {
         </div>
 
         <div className="post-contents flex flex-col px-2 py-4">
-
           <div className="post-content_tops flex space-x-48 ">
             <div className="flex justify-center items-center">
               <div className="w-0.5 h-0.5  relative bottom-1   rounded-full">
-              <AiOutlineReddit />
+                <AiOutlineReddit />
               </div>
               <div className="">
-              <span className="pr-2 pl-4 small font-bold">r/{post.subredditName} .</span>
-              <span className="small text-gray-400 font-light">posted by u/{post.author.name} {timeago.format(new Date(post.createdAt))}</span>
+                <Link href={`/r/${post.subredditName}`}>
+                  <a className="mr-2 underline pr-2 pl-4 small font-bold">
+                    /r/{post.subredditName}
+                  </a>
+                </Link>
+                <span className="small text-gray-400 font-light">
+                  posted by u/{post.author.name}
+                  <Link href={`/r/${post.subredditName}/comments/${post.id}`}>
+                    <a className="underline">
+                      {timeago.format(new Date(post.createdAt))}
+                    </a>
+                  </Link>
+                </span>
               </div>
-             
             </div>
 
             <div className="join-c">
@@ -38,6 +48,11 @@ const Post = ({ post }) => {
 
           <div className="post-content">
             <div className=" font-bold">
+              <Link href={`/r/${post.subredditName}/comments/${post.id}`}>
+                <h1 className="tracking-wide cursor text-xl px-6 py-4">
+                  {post.title}
+                </h1>
+              </Link>
               <p className="tracking-wide px-6 py-4">{post.content}</p>
 
               <img
@@ -68,62 +83,58 @@ const Post = ({ post }) => {
             </div>
 
             <div className="share flex ">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              class="h-6 w-6"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-              stroke-width="2"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z"
-              />
-            </svg>
-            <span>share</span>
-          </div>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="h-6 w-6"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z"
+                />
+              </svg>
+              <span>share</span>
+            </div>
 
-          <div className="save flex">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              class="h-6 w-6"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-              stroke-width="2"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z"
-              />
-            </svg>
-            <span>save</span>
-          </div>
+            <div className="save flex">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="h-6 w-6"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z"
+                />
+              </svg>
+              <span>save</span>
+            </div>
 
-          <div className="dot">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              class="h-6 w-6"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-              stroke-width="2"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                d="M5 12h.01M12 12h.01M19 12h.01M6 12a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0z"
-              />
-            </svg>
+            <div className="dot">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="h-6 w-6"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M5 12h.01M12 12h.01M19 12h.01M6 12a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0z"
+                />
+              </svg>
+            </div>
           </div>
-          </div>
-
-        
-
-         
         </div>
       </div>
     </div>

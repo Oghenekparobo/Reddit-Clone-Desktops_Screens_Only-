@@ -1,6 +1,9 @@
 import { AiOutlineReddit } from "react-icons/ai";
+import { useSession } from "next-auth/react";
 
 const Nav = () => {
+  const { data: session, status } = useSession();
+
   return (
     <div className="navbar flex items-center justify-between shadow p-2 ">
       <div className="nav-logo flex items-center mx-4 pr-4">
@@ -10,30 +13,46 @@ const Nav = () => {
         <h6 className="text-xl font-bold px-2">Reddit</h6>
       </div>
 
-<div className="flex-1">
-<div className="searchbar flex">
-        <input type="search" name="" id="" className="text-xl bg-gray-100 outline-none w-70 p-1 flex-1 mx-2" placeholder="Search Reddit"/>
+      <div className="flex-1">
+        <div className="searchbar flex">
+          <input
+            type="search"
+            name=""
+            id=""
+            className="text-xl bg-gray-100 outline-none w-70 p-1 flex-1 mx-2"
+            placeholder="Search Reddit"
+          />
+        </div>
       </div>
+      <div className="">
+        {session ? (
+          <div className="signins flex ">
+            <p className="font-bold">{session.user.name}</p>
 
-</div>
-
-    <div className="">
-    <div className="signins flex ">
-        <a
-          href="#"
-          className="login bg-transparent text-blue-500 border mx-4 border-blue-500 px-4 py-2 px-10 rounded-full font-bold"
-        >
-          Log In
-        </a>
-        <a
-          href="#"
-          className="login bg-blue-500 text-white border mx-4 border-blue-500 px-4 py-2 px-10 rounded-full font-bold"
-        >
-          Log In
-        </a>
+            <a
+              href="/api/auth/signout"
+              className="login bg-transparent text-blue-500 border mx-4 border-blue-500 px-4 py-2 px-10 rounded-full font-bold"
+            >
+              Log Out
+            </a>
+          </div>
+        ) : (
+          <div className="signins flex ">
+            <a
+              href="/api/auth/signin"
+              className="login bg-transparent text-blue-500 border mx-4 border-blue-500 px-4 py-2 px-10 rounded-full font-bold"
+            >
+              Log In
+            </a>
+            <a
+              href="#"
+              className="login bg-blue-500 text-white border mx-4 border-blue-500 px-4 py-2 px-10 rounded-full font-bold"
+            >
+              Sign Up
+            </a>
+          </div>
+        )}
       </div>
-    </div>
-      
 
       <div className="user flex mx-4 text-gray-400">
         <svg

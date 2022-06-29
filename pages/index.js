@@ -6,8 +6,23 @@ import { getPosts } from "lib/data";
 import prisma from "lib/prisma";
 import Head from "next/head";
 import Post from "./components/Post";
+import { useRouter } from "next/router";
+import { useSession } from "next-auth/react";
 
 export default function Home({posts}) {
+
+  const{data:session , status} = useSession()
+  const router = useRouter()
+
+  const loading = status === ' loading'
+
+  if(loading) return null
+
+  if(
+    session && !session.user.name) {
+    router.push('/login')
+
+   } 
   return (
     <div className="">
       <div className="">
@@ -31,6 +46,7 @@ export default function Home({posts}) {
              {posts.map((post , index) =>( 
                <Post post ={post} />
 
+               
              ))}
             </div>
             <div className="">
