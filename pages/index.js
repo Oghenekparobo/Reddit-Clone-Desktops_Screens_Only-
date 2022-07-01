@@ -21,8 +21,8 @@ export default function Home({posts}) {
   if(
     session && !session.user.name) {
     router.push('/login')
-
    } 
+   
   return (
     <div className="">
       <div className="">

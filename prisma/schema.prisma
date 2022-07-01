@@ -20,12 +20,9 @@ model User {
   updatedAt     DateTime  @updatedAt
   accounts      Account[]
   sessions      Session[]
-
-
-
-  Post    Post[]
-  Comment Comment[]
-  Vote    Vote[]
+  Post          Post[]
+  Comment       Comment[]
+  Vote          Vote[]
 }
 
 model VerificationToken {

@@ -1,5 +1,5 @@
 import prisma from "lib/prisma";
-import { getSubreddits, getPostsFromSubreddit } from "lib/data";
+import { getSubreddit, getPostsFromSubreddit } from "lib/data";
 import Post from "pages/components/Post";
 import Link from 'next/link'
 
@@ -24,10 +24,10 @@ export default function Subreddits({ subreddit, posts }) {
 }
 
 export async function getServerSideProps({ params }) {
-  let subreddit = await getSubreddits(params.subreddit, prisma);
+  let subreddit = await getSubreddit(params.subreddit, prisma);
   subreddit = JSON.parse(JSON.stringify(subreddit));
 
-  let posts = await getPostsFromSubreddit(params.subreddits, prisma);
+  let posts = await getPostsFromSubreddit(params.subreddit, prisma);
   posts = JSON.parse(JSON.stringify(posts));
 
   return {
