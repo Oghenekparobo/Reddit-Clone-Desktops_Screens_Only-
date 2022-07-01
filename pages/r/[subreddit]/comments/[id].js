@@ -270,7 +270,7 @@ export default function Post({ subreddit, post, votes, vote }) {
 
               <NewComment post={post} />
               <div className="w-full border border-gray-100 mt-4"></div>
-              <Comments comments={post.comments} sendVote={sendVote} votes={votes} vote={vote} />
+              <Comments comments={post.comments} sendVote={sendVote} votes={votes} vote={vote}  post={post} />
             </div>
           </div>
 
