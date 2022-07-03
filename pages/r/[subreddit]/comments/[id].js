@@ -4,7 +4,7 @@ import timeago from "lib/timeago";
 import Link from "next/link";
 import { getSubreddit, getPost } from "lib/data.js";
 import prisma from "lib/prisma";
-import { useSession, getSession } from 'next-auth/react'
+import { useSession, getSession } from "next-auth/react";
 import Popular from "/pages/components/Popular";
 import NewComment from "pages/components/NewComment";
 import Comments from "pages/components/Comments";
@@ -18,7 +18,7 @@ export default function Post({ subreddit, post, votes, vote }) {
 
   const loading = status == "loading";
 
-  if(loading) return null
+  if (loading) return null;
 
   const sendVote = async (up) => {
     await fetch("/api/vote", {
@@ -186,11 +186,12 @@ export default function Post({ subreddit, post, votes, vote }) {
                   <p className="tracking-wide px-6 py-2">{post.content}</p>
 
                   <div className="pb-6">
-                    <img
-                      src="/public/img/pawel-czerwinski-XQqd6JKDkSM-unsplash.jpg"
-                      alt=""
-                      className="w-80 h-48"
-                    />
+                    {post.image && (
+                      <img
+                        className="flex-shrink text-base font-normal color-primary width-auto mt-2"
+                        src={post.image}
+                      />
+                    )}
                   </div>
                 </div>
               </div>
@@ -270,7 +271,13 @@ export default function Post({ subreddit, post, votes, vote }) {
 
               <NewComment post={post} />
               <div className="w-full border border-gray-100 mt-4"></div>
-              <Comments comments={post.comments} sendVote={sendVote} votes={votes} vote={vote}  post={post} />
+              <Comments
+                comments={post.comments}
+                sendVote={sendVote}
+                votes={votes}
+                vote={vote}
+                post={post}
+              />
             </div>
           </div>
 
@@ -283,26 +290,22 @@ export default function Post({ subreddit, post, votes, vote }) {
   );
 }
 
-
-
-
-
 export async function getServerSideProps(context) {
-  const session = await getSession(context)
+  const session = await getSession(context);
 
-  const subreddit = await getSubreddit(context.params.subreddit, prisma)
-  let post = await getPost(parseInt(context.params.id), prisma)
-	post = JSON.parse(JSON.stringify(post))
+  const subreddit = await getSubreddit(context.params.subreddit, prisma);
+  let post = await getPost(parseInt(context.params.id), prisma);
+  post = JSON.parse(JSON.stringify(post));
 
-  let votes = await getVotes(parseInt(context.params.id), prisma)
-	votes = JSON.parse(JSON.stringify(votes))
+  let votes = await getVotes(parseInt(context.params.id), prisma);
+  votes = JSON.parse(JSON.stringify(votes));
 
   let vote = await getVote(
     parseInt(context.params.id),
     session?.user.id,
     prisma
-  )
-	vote = JSON.parse(JSON.stringify(vote))
+  );
+  vote = JSON.parse(JSON.stringify(vote));
 
   return {
     props: {
@@ -311,5 +314,5 @@ export async function getServerSideProps(context) {
       votes,
       vote,
     },
-  }
+  };
 }

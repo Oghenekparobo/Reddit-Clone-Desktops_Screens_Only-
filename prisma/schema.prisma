@@ -23,6 +23,8 @@ model User {
   Post          Post[]
   Comment       Comment[]
   Vote          Vote[]
+  name          String?
+name          String?   @unique
 }
 
 model VerificationToken {

@@ -55,11 +55,12 @@ const Post = ({ post }) => {
               </Link>
               <p className="tracking-wide px-6 py-4">{post.content}</p>
 
-              <img
-                src="/public/img/pawel-czerwinski-XQqd6JKDkSM-unsplash.jpg"
-                alt=""
-                className="w-80 h-80"
-              />
+              {post.image && (
+                <img
+                  className="flex-shrink text-base font-normal color-primary width-auto mt-2"
+                  src={post.image}
+                />
+              )}
             </div>
           </div>
 
