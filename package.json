@@ -1,5 +1,5 @@
 {
-  "name": "digital-downloads",
+  "name": "youtube-clone",
   "private": true,
   "scripts": {
     "dev": "next dev",
