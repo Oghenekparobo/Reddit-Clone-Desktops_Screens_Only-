@@ -13,18 +13,17 @@ datasource db {
 model User {
   id            String    @id @default(cuid())
   name          String?
+  username          String?
   email         String?   @unique
   emailVerified DateTime?
   image         String?
   createdAt     DateTime  @default(now())
   updatedAt     DateTime  @updatedAt
+  subscribers   User[]    @relation("Subscribers")
+  subscribedTo  User[]    @relation("Subscribers")
   accounts      Account[]
   sessions      Session[]
-  Post          Post[]
-  Comment       Comment[]
-  Vote          Vote[]
-  name          String?
-name          String?   @unique
+  video         Video[]
 }
 
 model VerificationToken {
@@ -50,7 +49,6 @@ model Account {
   session_state      String?
   oauth_token_secret String?
   oauth_token        String?
-
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([provider, providerAccountId])
@@ -64,46 +62,15 @@ model Session {
   user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
-model Subreddit {
-  name        String @id
-  description String
-  posts       Post[]
-}
-
-model Post {
-  id            Int        @id @default(autoincrement())
-  title         String
-  content       String
-  image         String?
-  createdAt     DateTime   @default(now())
-  author        User       @relation(fields: [authorId], references: [id])
-  authorId      String
-  comments      Comment[]
-  subreddit     Subreddit? @relation(fields: [subredditName], references: [name])
-  subredditName String?
-  Vote          Vote[]
-}
-
-model Comment {
-  id        Int       @id @default(autoincrement())
-  content   String
-  createdAt DateTime  @default(now())
-  author    User      @relation(fields: [authorId], references: [id])
-  authorId  String
-  post      Post?     @relation(fields: [postId], references: [id])
-  postId    Int?
-  parentId  Int?
-  parent    Comment?  @relation("ParentComment", fields: [parentId], references: [id])
-  Comment   Comment[] @relation("ParentComment")
-}
-
-model Vote {
-  id       Int     @id @default(autoincrement())
-  up       Boolean
-  author   User    @relation(fields: [authorId], references: [id])
-  authorId String
-  post     Post?   @relation(fields: [postId], references: [id])
-  postId   Int?
-
-  @@unique([authorId, postId])
+model Video {
+  id         String   @id @default(cuid())
+  title      String
+  url        String
+  thumbnail  String
+  views      Int      @default(0)
+  length     Int      @default(0)
+  visibility String
+  createdAt  DateTime @default(now())
+  author     User     @relation(fields: [authorId], references: [id], onDelete: Cascade)
+  authorId   String
 }

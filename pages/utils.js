@@ -1,20 +1,12 @@
 export default function Utils() {
-  const tasks = [
-    { task: "generate_users", description: "generate random users" },
-    { task: "generate_subreddits", description: "generate random subreddits" },
-    { task: "add_fake_content", description: "generate fake contents" },
-    { task: "clean_database", description: "clean database" },
-  ];
-
-
-  const Button = ({ task }) => (
-    <div className="flex justify-evenly pt-20">
+  return (
+    <div className="bg-red-500 h-screen flex justify-center items-center space-x-10 ">
       <button
-        className="custom-btn"
+        className="cursor-pointer text-red-500 py-2 px-8 bg-white border border-red-500 rounded"
         onClick={async () => {
-          await fetch("/api/utilities", {
+          await fetch("/api/utils", {
             body: JSON.stringify({
-              task: task.task,
+              task: "generate_content",
             }),
             headers: {
               "Content-Type": "application/json",
@@ -23,20 +15,24 @@ export default function Utils() {
           });
         }}
       >
-        {task.description}
+        Generate Content
       </button>
-    </div>
-  );
-
-  return (
-    <div>
-      <div className="utils bg-blue-300 h-screen">
-        <div className="buttons text-center">
-          {tasks.map((task, index) => (
-            <Button key={index} task={task} />
-          ))}
-        </div>
-      </div>
+      <button
+        className="cursor-pointer text-red-500 py-2 px-8 bg-white border border-red-500 rounded"
+        onClick={async () => {
+          await fetch("/api/utils", {
+            body: JSON.stringify({
+              task: "clean_database",
+            }),
+            headers: {
+              "Content-Type": "application/json",
+            },
+            method: "POST",
+          });
+        }}
+      >
+        Clean Database
+      </button>
     </div>
   );
 }
