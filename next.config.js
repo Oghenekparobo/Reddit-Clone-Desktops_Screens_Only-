@@ -3,8 +3,8 @@ const nextConfig = {
   images: {
     domains: [
       'localhost',
-      'bootcamp-stephen.s3.ca-central-1.amazonaws.com',
-      'bootcamp-stephen.s3.amazonaws.com',
+      'bootcamp-oghenekparobo.s3.ca-central-1.amazonaws.com',
+      'bootcamp-oghenekparobo.s3.amazonaws.com',
     ],
   },
 }
