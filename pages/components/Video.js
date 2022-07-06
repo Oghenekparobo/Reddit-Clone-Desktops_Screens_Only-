@@ -8,7 +8,7 @@ export default function Video({ video }) {
       <div className="thumbnail-minutes">
         <div className="">
           {video.thumbnail && (
-            <Link href={'/video/${video.id}'}><Image src={video.thumbnail} width="450" height="300" /></Link>
+            <Link href={`/video/${video.id}`}><Image src={video.thumbnail} width="450" height="300" /></Link>
           )}
         </div>
         <div className="minutes w-10 bg-black">
@@ -20,18 +20,17 @@ export default function Video({ video }) {
           </span>
         </div>
       </div>
-
+     
       <div className="attributes relative bottom-6 flex space-x-6">
-        <div className="author">
-         
+        <div className="author cursor-pointer">
           {video.author.image && (
-            <img src={video.author.image} className="w-10 h-10 rounded-full" />
+           <Link href={`/video/${video.id}`}><img src={video.author.image} className="w-10 h-10 rounded-full" /></Link>
           )}
         </div>
 
-        <div className="title-name-views-timeago text-gray-400">
-        <Link href={'/video/${video.id}'}><h5 className="text-xl text-white">{video.title}</h5></Link>
-          <Link href={'/video/${video.author.username}'}><p className="hover:border-b border-gray-400 w-24">{video.author.name}</p></Link>
+        <div className="title-name-views-timeago text-gray-400 cursor-pointer">
+        <Link href={`/video/${video.id}`}><h5 className="text-xl text-white hover:text-gray-500">{video.title}</h5></Link>
+          <Link href={`/video/${video.author.username}`}><p className="hover:border-b border-gray-400 w-24">{video.author.name}</p></Link>
           <p>{video.views} Views·<span>{timeago.format(new Date(video.createdAt)) }</span></p>
         </div>
 

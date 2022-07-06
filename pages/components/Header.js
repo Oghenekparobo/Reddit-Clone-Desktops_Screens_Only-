@@ -2,7 +2,7 @@ import MiniNav from "./MiniNav";
 import Video from "./Video";
 
 export default function Header({ videos }) {
-  if (!videos) return "no videos";
+  if (!videos) return "no videos in homepage";
   return (
     <div className="header">
       <MiniNav />
