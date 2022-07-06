@@ -6,7 +6,7 @@ import { SiYoutubegaming} from "react-icons/si";
 export default function SideBar() {
   return (
     <div className="">
-      <div className="flex sidebar flex-col w-24  p-4 h-vh space-y-10">
+      <div className="flex sidebar flex-col w-24  p-4 h-screen space-y-10">
  
         <div className="home">
           <span className="text-white">

@@ -7,7 +7,7 @@ import Head from "next/head";
 
 export default function Home({videos}) {
   return (
-    <div className="bg-black text-white relative h-full">
+    <div className="bg-black text-white relative">
        <Head>
         <title>YouTube Clone</title>
         <meta name='description' content='A great YouTube Clone' />
@@ -19,7 +19,7 @@ export default function Home({videos}) {
       </div>
 
       <div className="section flex  relative">
-        <div className="sidebar-section">
+        <div className="sidebar-section h-full">
           <SideBar />
         </div>
 

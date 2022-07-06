@@ -21,3 +21,11 @@
 .mini-styles{
   @apply px-6 rounded-full py-1  shadow transition;
 }
+
+.minutes{ 
+ position: relative;
+ left: 90%;
+ bottom: 2.5rem;
+ color: white;
+
+}
